@@ -1,51 +1,21 @@
 pipeline {
     agent any
 
-    options {
-        skipStagesAfterUnstable()
-    }
-
     tools {
         maven '3.9.11'
     }
 
     stages {
-        stage('Checkout Source Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/Yeamin321/my-gs-spring-boot.git'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'git --version'
-                sh 'mvn --version'
-                sh 'mvn clean test'
-            }
-        }
-
-        stage('Build and Package') {
+        stage('Build JAR') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
 
-        stage('Archive Artifacts') {
+        stage('Archive JAR') {
             steps {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline finished.'
-        }
-        success {
-            echo 'Build successful!'
-        }
-        failure {
-            echo 'Build failed!'
         }
     }
 }
