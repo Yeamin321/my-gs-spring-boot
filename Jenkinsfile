@@ -8,7 +8,7 @@ pipeline {
     environment {
         NEXUS_URL = 'http://localhost:8081/repository/maven-releases/'
         NEXUS_USER = 'admin'
-        NEXUS_PASS = 'YOUR_NEXUS_PASSWORD'
+        NEXUS_PASS = 'PASSWORD'
     }
 
     stages {
